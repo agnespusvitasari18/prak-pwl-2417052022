@@ -1,22 +1,36 @@
 <?php
 
-    use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\ProfileController;
-    use App\Http\Controllers\UserController;
-    use App\Http\Controllers\MataKuliahController; // Import Controller MataKuliah
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MataKuliahController;
 
-    Route::get('/', function () {
+Route::get('/', function () {
     return view('home', ['title' => 'Dashboard Utama']);
 });
 
-    Route::get('/profile/{nama?}/{kelas?}/{npm?}', [ProfileController::class, 'profile']);
+Route::get('/profile/{nama?}/{kelas?}/{npm?}', [ProfileController::class, 'profile']);
 
-    // Rute untuk User
-    Route::get('/user', [UserController::class, 'index']);
-    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+// Rute untuk User (CRUD)
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-    // Rute untuk Mata Kuliah (Tambahan Baru Modul 5)
-    Route::get('/matakuliah', [MataKuliahController::class, 'index']);
-    Route::get('/matakuliah/create', [MataKuliahController::class, 'create'])->name('matakuliah.create');
-    Route::post('/matakuliah', [MataKuliahController::class, 'store'])->name('matakuliah.store');
+// Rute untuk Mata Kuliah (CRUD Modul 5 & 6)
+Route::get('/matakuliah', [MataKuliahController::class, 'index'])->name('matakuliah.index');
+Route::get('/matakuliah/create', [MataKuliahController::class, 'create'])->name('matakuliah.create');
+Route::post('/matakuliah', [MataKuliahController::class, 'store'])->name('matakuliah.store');
+Route::get('/matakuliah/{id}/edit', [MataKuliahController::class, 'edit'])->name('matakuliah.edit');
+Route::put('/matakuliah/{id}', [MataKuliahController::class, 'update'])->name('matakuliah.update');
+Route::delete('/matakuliah/{id}', [MataKuliahController::class, 'destroy'])->name('matakuliah.destroy');
+
+// Compatibility routes untuk URL /mata-kuliah sesuai format modul
+Route::get('/mata-kuliah', [MataKuliahController::class, 'index']);
+Route::get('/mata-kuliah/create', [MataKuliahController::class, 'create']);
+Route::post('/mata-kuliah', [MataKuliahController::class, 'store']);
+Route::get('/mata-kuliah/{id}/edit', [MataKuliahController::class, 'edit']);
+Route::put('/mata-kuliah/{id}', [MataKuliahController::class, 'update']);
+Route::delete('/mata-kuliah/{id}', [MataKuliahController::class, 'destroy']);

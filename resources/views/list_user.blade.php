@@ -1,13 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="row mb-4 align-items-center">
     <div class="col">
         <h1 class="h3 mb-0 text-gray-800">Daftar Pengguna</h1>
     </div>
     <div class="col-auto">
         <a href="{{ route('user.create') }}" class="btn btn-primary shadow-sm">
-            + Tambah Pengguna
+            ➕ Tambah Pengguna
         </a>
     </div>
 </div>
